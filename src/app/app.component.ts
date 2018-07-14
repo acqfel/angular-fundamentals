@@ -16,9 +16,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     
     this.GitSearchService.gitUsers('tom').then( (response) => {
-      alert("Total Users Found:" + response.total_count);
+      //alert("Total Users Found:" + response.total_count);
     }, (error) => {
-      alert("Error: " + error.statusText);
+      //alert("Error: " + error.statusText);
     });
   }
   
