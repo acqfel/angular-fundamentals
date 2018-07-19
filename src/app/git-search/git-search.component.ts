@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GitSearchService } from '../git-search.service';
 import { GitSearch } from '../git-search';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-git-search',
@@ -13,17 +13,32 @@ export class GitSearchComponent implements OnInit {
   searchResults: GitSearch;
   searchQuery: string;
   title: string;
+  displayQuery: string;
   
-  constructor(private GitSearchService: GitSearchService, private route: ActivatedRoute ) { }
+  constructor(
+    private GitSearchService: GitSearchService, 
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     
+    this.route.paramMap.subscribe( (params: ParamMap) => {
+      this.searchQuery = params.get('query');
+      this.displayQuery = params.get('query');
+      this.gitSearch();
+    });
+    
+    // code to NO Dinamic Router - without /:query
+    /*
     this.GitSearchService.gitSearch('angular').then( (response) => {
       //alert("Total Libraries Found:" + response.total_count);
       this.searchResults = response;
     }, (error) => {
       alert("Error: " + error.statusText)
-    })
+    });
+    */
+    
     this.route.data.subscribe( (result) => {
       this.title = result.title
     });
@@ -37,5 +52,10 @@ export class GitSearchComponent implements OnInit {
         alert("Error: " + error.statusText)
       });
     }
+    
+  sendQuery = () => {
+    this.searchResults = null;
+    this.router.navigate(['/search/' + this.searchQuery]);
+  }
 
 }
