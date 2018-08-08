@@ -59,7 +59,27 @@ export class GitSearchComponent implements OnInit {
     
   sendQuery = () => {
     this.searchResults = null;
-    this.router.navigate(['/search/' + this.searchQuery]);
+    
+    //this.router.navigate(['/search/' + this.searchQuery]);
+    
+    //search query modified to git search advanced mode
+    // example - https://api.github.com/search/repositories?q=tetris+language:assembly
+    let search : string = this.model.q;
+    let params : string = "";
+    this.modelKeys.forEach(  (elem) => {
+        if (elem === 'q') {
+            return false;
+        }
+        if (this.model[elem]) {
+            params += '+' + elem + ':' + this.model[elem];
+        }
+    })
+    this.searchQuery = search;
+    if (params !== '') {
+        this.searchQuery = search + '+' + params;
+    }
+    this.displayQuery = this.searchQuery;
+    this.gitSearch();
   }
 
 }
