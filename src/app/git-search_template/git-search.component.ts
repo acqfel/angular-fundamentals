@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GitSearchService } from '../git-search.service';
 import { GitSearch } from '../git-search';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AdvancedSearchModel } from '../advanced-search-model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AdvancedSearchModel } from '../advanced-search-model'
 
 @Component({
   selector: 'app-git-search',
@@ -16,21 +15,12 @@ export class GitSearchComponent implements OnInit {
   searchQuery: string;
   title: string;
   displayQuery: string;
-  // form variables
-  form: FormGroup;
-  formControls = {};
   
   constructor(
     private GitSearchService: GitSearchService, 
     private route: ActivatedRoute,
     private router: Router
-    ) {
-      // create FormGroup
-      this.modelKeys.forEach( (key) => {
-        this.formControls[key] = new FormControl();
-      });
-      this.form = new FormGroup(this.formControls);
-    }
+    ) { }
 
   model = new AdvancedSearchModel('', '', '', null, null, '');
   modelKeys = Object.keys(this.model);
@@ -74,14 +64,14 @@ export class GitSearchComponent implements OnInit {
     
     //search query modified to git search advanced mode
     // example - https://api.github.com/search/repositories?q=tetris+language:assembly
-    let search : string = this.form.value['q'];
+    let search : string = this.model.q;
     let params : string = "";
     this.modelKeys.forEach(  (elem) => {
         if (elem === 'q') {
             return false;
         }
-        if (this.form.value[elem]) {
-            params += '+' + elem + ':' + this.form.value[elem];
+        if (this.model[elem]) {
+            params += '+' + elem + ':' + this.model[elem];
         }
     });
     
@@ -91,7 +81,6 @@ export class GitSearchComponent implements OnInit {
     }
     
     this.displayQuery = this.searchQuery;
-    console.log(this.form.value);
     
     // call gitSearch method - run the search on github
     this.gitSearch();

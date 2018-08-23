@@ -1,17 +1,14 @@
 <h3>{{title}} - {{displayQuery}}</h3>
-
-<form (ngSubmit)="sendQuery()" [formGroup]="form">
+<form (ngSubmit)="sendQuery()">
   <div *ngFor="let key of modelKeys">
-        {{key}}<input placeholder="Enter {{key}} Here" formControlName="{{key}}" />
+        {{key}}<input name="{{key}}" placeholder="Enter {{key}} Here" [(ngModel)]="model[key]" />
   </div>
-  <button type="submit">Submit</button>
   
   <!--<input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery" />-->
   <!--<button (click)="gitSearch()">Submit</button>-->
-  
+  <button type="submit">Submit</button>
 </form>
 <br />
-
 <div *ngIf="searchResults; else elseBlock">
   <h3 class="total">Total Results: {{searchResults.total_count}}</h3>
   

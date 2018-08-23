@@ -40,7 +40,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(
     appRoutes
-    )
+    ),
+    ReactiveFormsModule
   ],
   providers: [GitSearchService],
   bootstrap: [AppComponent]
