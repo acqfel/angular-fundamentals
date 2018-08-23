@@ -73,12 +73,16 @@ export class GitSearchComponent implements OnInit {
         if (this.model[elem]) {
             params += '+' + elem + ':' + this.model[elem];
         }
-    })
+    });
+    
     this.searchQuery = search;
     if (params !== '') {
         this.searchQuery = search + '+' + params;
     }
+    
     this.displayQuery = this.searchQuery;
+    
+    // call gitSearch method - run the search on github
     this.gitSearch();
   }
 
