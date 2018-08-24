@@ -23,7 +23,7 @@
     font-size:18px;
 }
 
-.ng-valid  {
+.ng-valid:not(form)  {
     border: 2px solid #42A948; /* green */
   }
   
