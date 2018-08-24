@@ -30,18 +30,16 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    GitSearchComponent,
     HomePageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    GitSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(
-    appRoutes
-    ),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [GitSearchService],
   bootstrap: [AppComponent]
