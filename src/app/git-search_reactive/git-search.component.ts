@@ -4,6 +4,7 @@ import { GitSearch } from '../git-search';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AdvancedSearchModel } from '../advanced-search-model';
 import { FormControl, FormGroup, Validators  } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-git-search',
@@ -63,16 +64,6 @@ export class GitSearchComponent implements OnInit {
       this.gitSearch();
     });
     
-    // code to NO Dinamic Router - without /:query
-    /*
-    this.GitSearchService.gitSearch('angular').then( (response) => {
-      //alert("Total Libraries Found:" + response.total_count);
-      this.searchResults = response;
-    }, (error) => {
-      alert("Error: " + error.statusText)
-    });
-    */
-    
     this.route.data.subscribe( (result) => {
       this.title = result.title
     });
@@ -80,12 +71,12 @@ export class GitSearchComponent implements OnInit {
   }
   
   gitSearch = () => {
-      this.GitSearchService.gitSearch(this.searchQuery).then((response) => {
-        this.searchResults = response;
-      }, (error) => {
-        alert("Error: " + error.statusText)
-      });
-    }
+    this.GitSearchService.gitSearch(this.searchQuery).subscribe( (response) => {
+      this.searchResults = response;
+    }, (error) => {
+      alert("Error: " + error.statusText)
+    })
+  }
     
   sendQuery = () => {
     this.searchResults = null;
