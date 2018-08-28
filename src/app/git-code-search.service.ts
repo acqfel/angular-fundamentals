@@ -10,7 +10,7 @@ import { catchError, retry } from 'rxjs/operators';
 export class GitCodeSearchService {
 
   cachedValue: string;    
-  search: Observable<GitSearch>;
+  search: Observable<GitCodeSearch>;
 
   constructor(private http: HttpClient) {
     

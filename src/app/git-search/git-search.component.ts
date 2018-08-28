@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GitSearchService } from '../git-search.service';
+//import { GitSearchService } from '../git-search.service';
+import { UnifiedSearchService } from '../unified-search.service'
 import { GitSearch } from '../git-search';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AdvancedSearchModel } from '../advanced-search-model'
@@ -17,7 +18,8 @@ export class GitSearchComponent implements OnInit {
   displayQuery: string;
   
   constructor(
-    private GitSearchService: GitSearchService, 
+    //private GitSearchService: GitSearchService,
+    private UnifiedSearchService: UnifiedSearchService,
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -49,13 +51,28 @@ export class GitSearchComponent implements OnInit {
     
   }
   
+  // gitSearch using GitSearchService
+  // gitSearch = () => {
+  //     this.GitSearchService.gitSearch(this.searchQuery).subscribe((response) => {
+  //       this.searchResults = response;
+  //     }, (error) => {
+  //       alert("Error: " + error.statusText)
+  //     });
+  //   }
+  
+  // gitSearch using UnifiedSearchService
   gitSearch = () => {
-      this.GitSearchService.gitSearch(this.searchQuery).subscribe((response) => {
-        this.searchResults = response;
-      }, (error) => {
-        alert("Error: " + error.statusText)
-      });
-    }
+    this.UnifiedSearchService.unifiedSearch(this.searchQuery).subscribe( (response) => {
+      console.log(response);
+      this.searchResults = response.repositories;
+    }, (error) => {
+      alert("Error: " + error.statusText)
+    })
+  }
+  
+  // checkType = (key) => {
+  //   return typeof key === 'string' ? 'text' : typeof key;
+  // }
     
   sendQuery = () => {
     this.searchResults = null;
