@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GitCodeSearch } from '../git-code-search';
 
 @Component({
   selector: 'app-code-display',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodeDisplayComponent implements OnInit {
 
+  @Input() searchResults: GitCodeSearch;
+  
   constructor() { }
 
   ngOnInit() {
