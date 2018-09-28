@@ -21,11 +21,13 @@
     <app-repository-display [searchResults]="searchResults.repositories" 
                             [favorites]="favorites" 
                             (updateFavorites)="handleFavorite($event)" 
-                            *ngIf="searchResults.repositories"></app-repository-display>
+                            *ngIf="searchResults.repositories"
+                            appFade ></app-repository-display>
     <app-code-display [searchResults]="searchResults.code" 
                       [favorites]="favorites" 
                       (updateFavorites)="handleFavorite($event)" 
-                      *ngIf="searchResults.code"></app-code-display>
+                      *ngIf="searchResults.code"
+                      appFade ></app-code-display>
   </ul>
 </div>
 <ng-template #elseBlock>Loading...</ng-template>
